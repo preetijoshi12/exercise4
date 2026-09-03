@@ -505,30 +505,24 @@ function projectPoly(imagedata,poly,view) {
 /* main -- here is where execution begins after window load */
 
 function main() {
-
-    // Get the canvas, context, and image data
     var canvas = document.getElementById("viewport"); 
     var context = canvas.getContext("2d");
-    var w = context.canvas.width; 
-    var h = context.canvas.height;  
+    var w = context.canvas.width;
+    var h = context.canvas.height; 
     var imagedata = context.createImageData(w,h);
     
-    // Define polygon with correct vertex colors
-    var poly = [
-        {x:-5, y:5,  z:10, c:new Color(255,0,0,255)}, // Top-Left: Red
-        {x:5,  y:5,  z:10, c:new Color(0,255,0,255)}, // Top-Right: Green
-        {x:5,  y:-5, z:10, c:new Color(0,0,0,255)},   // Bottom-Right: Black
-        {x:-5, y:-5, z:10, c:new Color(0,0,255,255)}  // Bottom-Left: Blue
-    ];
-
-    // VIEW 2 (Angled View matching reference image)
-    // Position camera to the left (-X) and slightly below (-Y)
-    var testEye = new Vector(-2, -1, 0);
-    var targetCenter = new Vector(0, 0, 10);
-    var testAt = Vector.subtract(targetCenter, testEye);
+    // View 2 Configuration (Angled/Perspective View)
+    var testEye = new Vector(-2, -1, 0); // Offset camera position
+    var testAt = Vector.subtract(new Vector(0,0,10), testEye);
     var view = { eye: testEye, at: testAt, up: new Vector(0, 1, 0) };
-
-    // Project and render polygon
+    
+    var poly = [
+        {x:-5, y:5, z:10, c:new Color(255,0,0,255)},   // Red
+        {x:5,  y:5, z:10, c:new Color(0,255,0,255)},   // Green
+        {x:5,  y:-5, z:10, c:new Color(0,0,0,255)},    // Black
+        {x:-5, y:-5, z:10, c:new Color(0,0,255,255)}   // Blue
+    ];
+    
     projectPoly(imagedata, poly, view);
     fillPoly(imagedata, poly);
     
