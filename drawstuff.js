@@ -505,26 +505,41 @@ function projectPoly(imagedata,poly,view) {
 /* main -- here is where execution begins after window load */
 
 function main() {
+
+    // Get the canvas, context, and image data
     var canvas = document.getElementById("viewport"); 
     var context = canvas.getContext("2d");
-    var w = context.canvas.width;
-    var h = context.canvas.height; 
+    var w = context.canvas.width; 
+    var h = context.canvas.height;  
     var imagedata = context.createImageData(w,h);
     
-    // View 1 Configuration (Diamond View)
+    // Define polygon with vertices (Clockwise order)
+    var poly = [
+        {x:-5, y:5,  z:10, c:new Color(255,0,0,255)},   // Top-Left: Red
+        {x:5,  y:5,  z:10, c:new Color(0,255,0,255)},   // Top-Right: Green
+        {x:5,  y:-5, z:10, c:new Color(0,0,0,255)},    // Bottom-Right: Black
+        {x:-5, y:-5, z:10, c:new Color(0,0,255,255)}   // Bottom-Left: Blue
+    ];
+
+    // =========================================================
+    // VIEW 1: DIAMOND VIEW
+    // (Uncomment this block to render View 1)
+    // =========================================================
+    /*
     var testEye = new Vector(0,0,0);
     var testAt = Vector.subtract(new Vector(0,0,10), testEye);
-    
-    // Rotate the Up vector 45 degrees to tilt the camera into a diamond shape
-    var view = { eye: testEye, at: testAt, up: new Vector(1, 1, 0) };
-    
-   var poly = [
-        {x:-5, y:5,  z:10, c:new Color(255,0,0,255)},   // Red (Top-Left in 3D)
-        {x:5,  y:5,  z:10, c:new Color(0,255,0,255)},   // Green (Top-Right in 3D)
-        {x:5,  y:-5, z:10, c:new Color(0,0,0,255)},    // Black (Bottom-Right in 3D)
-        {x:-5, y:-5, z:10, c:new Color(0,0,255,255)}   // Blue (Bottom-Left in 3D)
-    ];
-    
+    var view = { eye: testEye, at: testAt, up: new Vector(1, -1, 0) };
+    */
+
+    // =========================================================
+    // VIEW 2: ANGLED PERSPECTIVE VIEW
+    // (Uncomment this block to render View 2)
+    // =========================================================
+    var testEye = new Vector(-2.5, 1, 0);
+    var testAt = Vector.subtract(new Vector(0,0,10), testEye);
+    var view = { eye: testEye, at: testAt, up: new Vector(0, 1, 0) };
+
+    // Project and render polygon
     projectPoly(imagedata, poly, view);
     fillPoly(imagedata, poly);
     
