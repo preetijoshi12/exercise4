@@ -513,7 +513,7 @@ function main() {
     var h = context.canvas.height;  
     var imagedata = context.createImageData(w,h);
     
-    // Define polygon with vertices (Clockwise order)
+    // Polygon vertices (Clockwise order in 3D world space)
     var poly = [
         {x:-5, y:5,  z:10, c:new Color(255,0,0,255)},   // Top-Left: Red
         {x:5,  y:5,  z:10, c:new Color(0,255,0,255)},   // Top-Right: Green
@@ -521,23 +521,13 @@ function main() {
         {x:-5, y:-5, z:10, c:new Color(0,0,255,255)}   // Bottom-Left: Blue
     ];
 
-    // =========================================================
-    // VIEW 1: DIAMOND VIEW
-    // (Uncomment this block to render View 1)
-    // =========================================================
-    /*
-    var testEye = new Vector(0,0,0);
-    var testAt = Vector.subtract(new Vector(0,0,10), testEye);
+    // Diamond View Camera Configuration
+    var testEye = new Vector(0, 0, 0);
+    var testAt = Vector.subtract(new Vector(0, 0, 10), testEye);
+    
+    // Setting up to (1, -1, 0) compensates for screen-Y inversion,
+    // placing Green at Top, Black at Left, Red at Right, Blue at Bottom
     var view = { eye: testEye, at: testAt, up: new Vector(1, -1, 0) };
-    */
-
-    // =========================================================
-    // VIEW 2: ANGLED PERSPECTIVE VIEW
-    // (Uncomment this block to render View 2)
-    // =========================================================
-    var testEye = new Vector(-2.5, 1, 0);
-    var testAt = Vector.subtract(new Vector(0,0,10), testEye);
-    var view = { eye: testEye, at: testAt, up: new Vector(0, 1, 0) };
 
     // Project and render polygon
     projectPoly(imagedata, poly, view);
