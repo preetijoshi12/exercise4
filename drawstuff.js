@@ -520,18 +520,10 @@ function main() {
         {x:5,  y:-5, z:10, c:new Color(0,0,0,255)},   // Bottom-Right: Black
         {x:-5, y:-5, z:10, c:new Color(0,0,255,255)}  // Bottom-Left: Blue
     ];
-    
-    // Diamond View
-    // Uncomment this block to produce View 1:
-    /*
-    var testEye = new Vector(0,0,0);
-    var testAt = Vector.subtract(new Vector(0,0,10), testEye);
-    var view = { eye: testEye, at: testAt, up: new Vector(1,1,0) };
-    */
 
-    // VIEW 2 (Angled View)
-    // Position camera to the right (+X) and above (+Y) looking at (0,0,10)
-    var testEye = new Vector(1.5, 2, 0);
+    // VIEW 2 (Angled View matching reference image)
+    // Position camera to the left (-X) and slightly below (-Y)
+    var testEye = new Vector(-2, -1, 0);
     var targetCenter = new Vector(0, 0, 10);
     var testAt = Vector.subtract(targetCenter, testEye);
     var view = { eye: testEye, at: testAt, up: new Vector(0, 1, 0) };
@@ -541,5 +533,4 @@ function main() {
     fillPoly(imagedata, poly);
     
     context.putImageData(imagedata, 0, 0);
-}
 }
