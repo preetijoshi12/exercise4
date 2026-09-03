@@ -511,16 +511,18 @@ function main() {
     var h = context.canvas.height; 
     var imagedata = context.createImageData(w,h);
     
-    // View 2 Configuration (Angled/Perspective View)
-    var testEye = new Vector(-3, 1, 0); // Offset camera position
+    // View 1 Configuration (Diamond View)
+    var testEye = new Vector(0,0,0);
     var testAt = Vector.subtract(new Vector(0,0,10), testEye);
-    var view = { eye: testEye, at: testAt, up: new Vector(0, 1, 0) };
     
-    var poly = [
-        {x:-5, y:5, z:10, c:new Color(255,0,0,255)},   // Red
-        {x:5,  y:5, z:10, c:new Color(0,255,0,255)},   // Green
-        {x:5,  y:-5, z:10, c:new Color(0,0,0,255)},    // Black
-        {x:-5, y:-5, z:10, c:new Color(0,0,255,255)}   // Blue
+    // Rotate the Up vector 45 degrees to tilt the camera into a diamond shape
+    var view = { eye: testEye, at: testAt, up: new Vector(1, 1, 0) };
+    
+   var poly = [
+        {x:-5, y:5,  z:10, c:new Color(255,0,0,255)},   // Red (Top-Left in 3D)
+        {x:5,  y:5,  z:10, c:new Color(0,255,0,255)},   // Green (Top-Right in 3D)
+        {x:5,  y:-5, z:10, c:new Color(0,0,0,255)},    // Black (Bottom-Right in 3D)
+        {x:-5, y:-5, z:10, c:new Color(0,0,255,255)}   // Blue (Bottom-Left in 3D)
     ];
     
     projectPoly(imagedata, poly, view);
