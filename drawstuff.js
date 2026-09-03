@@ -513,12 +513,39 @@ function main() {
     var h = context.canvas.height;  // as set in html
     var imagedata = context.createImageData(w,h);
     
-    // define polygon and view
+    /**
     var testEye = new Vector(0,0,0);
     var testAt = Vector.subtract(new Vector(0,0,10),testEye);
     var view = {eye:testEye, at:testAt, up:new Vector(0,1,0)};
     var poly = [{x:-5,y:5,z:10,c:new Color(255,0,0,255)}, {x:5,y:5,z:10,c:new Color(0,255,0,255)}, 
                 {x:5,y:-5,z:10,c:new Color(0,0,0,255)}, {x:-5,y:-5,z:10,c:new Color(0,0,255,255)}];
+    */
+
+    // Diamond View
+    var testEye = new Vector(0,0,0);
+    var testAt = Vector.subtract(new Vector(0,0,10), testEye);
+    
+    // Rotate the Up vector 45 degrees to tilt the camera into a diamond shape
+    var view = { eye: testEye, at: testAt, up: new Vector(1, 1, 0) };
+    
+    var poly = [
+        {x:-5, y:5, z:10, c:new Color(255,0,0,255)},   // Red
+        {x:5,  y:5, z:10, c:new Color(0,255,0,255)},   // Green
+        {x:5,  y:-5, z:10, c:new Color(0,0,0,255)},    // Black
+        {x:-5, y:-5, z:10, c:new Color(0,0,255,255)}   // Blue
+    ];
+
+    /** / Angle
+    var testEye = new Vector(-2, -1, 0); // Offset camera position
+    var testAt = Vector.subtract(new Vector(0,0,10), testEye);
+    var view = { eye: testEye, at: testAt, up: new Vector(0, 1, 0) };
+    
+    var poly = [
+        {x:-5, y:5, z:10, c:new Color(255,0,0,255)},   // Red
+        {x:5,  y:5, z:10, c:new Color(0,255,0,255)},   // Green
+        {x:5,  y:-5, z:10, c:new Color(0,0,0,255)},    // Black
+        {x:-5, y:-5, z:10, c:new Color(0,0,255,255)}   // Blue
+    ]; */
     
     // Define and render a rectangle in 2D with colors and coords at corners
     projectPoly(imagedata,poly,view);
