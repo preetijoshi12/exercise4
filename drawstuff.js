@@ -512,7 +512,7 @@ function main() {
     var imagedata = context.createImageData(w,h);
     
     // View 2 Configuration (Angled/Perspective View)
-    var testEye = new Vector(-2, 1, 0); // Offset camera position
+    var testEye = new Vector(-3, 1, 0); // Offset camera position
     var testAt = Vector.subtract(new Vector(0,0,10), testEye);
     var view = { eye: testEye, at: testAt, up: new Vector(0, 1, 0) };
     
