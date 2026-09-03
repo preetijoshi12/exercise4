@@ -525,9 +525,9 @@ function main() {
     var testEye = new Vector(0, 0, 0);
     var testAt = Vector.subtract(new Vector(0, 0, 10), testEye);
     
-    // Setting up to (1, -1, 0) compensates for screen-Y inversion,
-    // placing Green at Top, Black at Left, Red at Right, Blue at Bottom
-    var view = { eye: testEye, at: testAt, up: new Vector(1, -1, 0) };
+    // Setting UP to (-1, -1, 0) rotates the view matrix to position 
+    // Green at Top, Black at Left, Red at Right, Blue at Bottom
+    var view = { eye: testEye, at: testAt, up: new Vector(-1, -1, 0) };
 
     // Project and render polygon
     projectPoly(imagedata, poly, view);
