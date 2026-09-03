@@ -509,29 +509,27 @@ function main() {
     // Get the canvas, context, and image data
     var canvas = document.getElementById("viewport"); 
     var context = canvas.getContext("2d");
-    var w = context.canvas.width; 
-    var h = context.canvas.height;  
+    var w = context.canvas.width; // as set in html
+    var h = context.canvas.height;  // as set in html
     var imagedata = context.createImageData(w,h);
     
-    // Polygon vertices (Clockwise order in 3D world space)
+    // define polygon and view
+    var testEye = new Vector(0,0,0);
+    var testAt = Vector.subtract(new Vector(0,0,10),testEye);
+    var view = {eye:testEye, at:testAt, up:new Vector(0,1,0)};
+    
+    // Updated polygon to form a diamond with matching corner colors:
+    // Top (Green), Right (Red), Bottom (Blue), Left (Black)
     var poly = [
-        {x:-5, y:5,  z:10, c:new Color(255,0,0,255)},   // Top-Left: Red
-        {x:5,  y:5,  z:10, c:new Color(0,255,0,255)},   // Top-Right: Green
-        {x:5,  y:-5, z:10, c:new Color(0,0,0,255)},    // Bottom-Right: Black
-        {x:-5, y:-5, z:10, c:new Color(0,0,255,255)}   // Bottom-Left: Blue
+        {x: 0,  y: 5,  z:10, c: new Color(0, 255, 0, 255)},   // Top
+        {x: 5,  y: 0,  z:10, c: new Color(255, 0, 0, 255)},   // Right
+        {x: 0,  y: -5, z:10, c: new Color(0, 0, 255, 255)},   // Bottom
+        {x: -5, y: 0,  z:10, c: new Color(0, 0, 0, 255)}      // Left
     ];
-
-    // Diamond View Camera Configuration
-    var testEye = new Vector(0, 0, 0);
-    var testAt = Vector.subtract(new Vector(0, 0, 10), testEye);
     
-    // Setting UP to (-1, 1, 0) tilts the camera matrix to put:
-    // Green -> Top, Black -> Left, Red -> Right, Blue -> Bottom
-    var view = { eye: testEye, at: testAt, up: new Vector(-1, 1, 0) };
-
-    // Project and render polygon
-    projectPoly(imagedata, poly, view);
-    fillPoly(imagedata, poly);
+    // Define and render a rectangle in 2D with colors and coords at corners
+    projectPoly(imagedata,poly,view);
+    fillPoly(imagedata,poly);
     
-    context.putImageData(imagedata, 0, 0);
+    context.putImageData(imagedata, 0, 0); // display the image in the context
 }
